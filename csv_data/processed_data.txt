@@ -1,2 +1,2 @@
-Number of rows: 154
+Number of rows: 153
 Number of columns: 20

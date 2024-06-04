@@ -1,0 +1,1 @@
+Mean value of Column_Name: 233.62962962962962
