@@ -1,0 +1,2 @@
+Number of words: 32712
+Number of lines: 13127

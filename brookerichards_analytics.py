@@ -38,25 +38,33 @@ def fetch_and_write_excel_data(folder_name, filename, url):
         print(f"Failed to fetch Excel data: {response.status_code}")
 
 def write_txt_file(folder_name, filename, data):
-    file_path = pathlib.Path(folder_name) / filename
+    folder_path = pathlib.Path(folder_name)
+    folder_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    file_path = folder_path / filename
     with file_path.open('w') as file:
         file.write(data)
         print(f"Text data saved to {file_path}")
 
 def write_csv_file(folder_name, filename, data):
-    file_path = pathlib.Path(folder_name) / filename
+    folder_path = pathlib.Path(folder_name)
+    folder_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    file_path = folder_path / filename
     with file_path.open('w', newline='') as file:
         file.write(data)
         print(f"CSV data saved to {file_path}")
 
 def write_json_file(folder_name, filename, data):
-    file_path = pathlib.Path(folder_name) / filename
+    folder_path = pathlib.Path(folder_name)
+    folder_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    file_path = folder_path / filename
     with file_path.open('w') as file:
         json.dump(data, file)
         print(f"JSON data saved to {file_path}")
 
 def write_excel_file(folder_name, filename, data):
-    file_path = pathlib.Path(folder_name) / filename
+    folder_path = pathlib.Path(folder_name)
+    folder_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    file_path = folder_path / filename
     with file_path.open('wb') as file:
         file.write(data)
         print(f"Excel data saved to {file_path}")
@@ -135,7 +143,34 @@ def process_excel_file(folder_name, input_filename, output_filename):
 
 # main function
 def main():
+    # Define folder names and filenames for each type of data
+    txt_folder_name = 'txt_data'
+    csv_folder_name = 'csv_data'
+    json_folder_name = 'json_data'
+    excel_folder_name = 'excel_data'
+    
+    txt_filename = 'data.txt'
+    csv_filename = 'data.csv'
+    json_filename = 'data.json'
+    excel_filename = 'data.xls'
+
+    # URLs for fetching data
     txt_url = 'https://www.gutenberg.org/cache/epub/1513/pg1513-images.html'
     csv_url = 'https://raw.githubusercontent.com/MainakRepositor/Datasets/master/World%20Happiness%20Data/2020.csv'
     json_url = 'http://api.open-notify.org/astros.json'
     excel_url = 'https://github.com/bharathirajatut/sample-excel-dataset/raw/master/cattle.xls'
+
+    # Fetch and write data
+    fetch_and_write_txt_data(txt_folder_name, txt_filename, txt_url)
+    fetch_and_write_csv_data(csv_folder_name, csv_filename, csv_url)
+    fetch_and_write_json_data(json_folder_name, json_filename, json_url)
+    fetch_and_write_excel_data(excel_folder_name, excel_filename, excel_url)
+
+    # Process data
+    process_txt_file(txt_folder_name, txt_filename, 'processed_txt.txt')
+    process_csv_file(csv_folder_name, csv_filename, 'processed_csv.txt')
+    process_json_file(json_folder_name, json_filename, 'processed_json.txt')
+    process_excel_file(excel_folder_name, excel_filename, 'processed_excel.txt')
+
+if __name__ == '__main__':
+    main()
